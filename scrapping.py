@@ -1,9 +1,13 @@
 # https://curl.trillworks.com/
 
 import requests
+from datetime import datetime
 
 data = {}
-window = 500
+window = "500"
+interval = "60" # day, month
+chart_type = "candlestick" # area
+period = "1-years" # max
 
 cookies = {
     'PHPSESSID': '3akrers8ivmss7be5bk00kvoi4',
@@ -32,12 +36,12 @@ headers = {
 params = (
     ('pair_id', '8849'),
     ('pair_id_for_news', '8849'),
-    ('chart_type', 'area'),
-    ('pair_interval', 'week'),
-    ('candle_count', str(window)),
+    ('chart_type', chart_type),
+    ('pair_interval', interval),
+    ('candle_count', window),
     ('events', 'yes'),
     ('volume_series', 'yes'),
-    ('period', ''),
+    ('period', period),
 )
 
 response = requests.get('https://br.investing.com/common/modules/js_instrument_chart/api/data.php', headers=headers, params=params, cookies=cookies)
@@ -77,12 +81,12 @@ headers = {
 params = (
     ('pair_id', '8849'),
     ('pair_id_for_news', '8849'),
-    ('chart_type', 'area'),
-    ('pair_interval', 'week'),
-    ('candle_count', str(window)),
+    ('chart_type', chart_type),
+    ('pair_interval', interval),
+    ('candle_count', window),
     ('events', 'yes'),
     ('volume_series', 'yes'),
-    ('period', ''),
+    ('period', period),
 )
 
 response = requests.get('https://br.investing.com/common/modules/js_instrument_chart/api/data.php', headers=headers, params=params, cookies=cookies)
@@ -90,9 +94,17 @@ response = requests.get('https://br.investing.com/common/modules/js_instrument_c
 json = response.json()
 data["oil"] = json["candles"]
 
-
+# Debug
 
 print(data.keys())
 print(len(data["oil"]),len(data["petrobras"]))
 
-#print(data["oil"])
+val = len(data["oil"])
+last = data["oil"][val-1]
+print(last)
+
+print(datetime.fromtimestamp(last[0]/1000))
+
+# Save data
+
+
