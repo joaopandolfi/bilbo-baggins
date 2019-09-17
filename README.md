@@ -1,4 +1,4 @@
 # Bilbo Baggins
-This repo is another bilbo lsd travel
+This repo is another bilbo lsd trip
 
-Not have nothing interesting here
+There is nothing interesting here
